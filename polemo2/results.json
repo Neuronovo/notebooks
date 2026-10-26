@@ -1,0 +1,1574 @@
+{
+  "status": "completed",
+  "protocols": {
+    "all_text": {
+      "status": "completed",
+      "run": {
+        "date": "2026-10-26T20:09:34.693832+00:00",
+        "protocol": "all_text",
+        "hardware": {
+          "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+          "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+          "cpu_count": 2,
+          "cuda_available": true,
+          "cuda_version": "13.0",
+          "gpu": "Tesla T4",
+          "gpu_memory_gib": 14.56
+        },
+        "versions": {
+          "python": "3.13.16",
+          "numpy": "2.1.3",
+          "pandas": "2.2.3",
+          "scipy": "1.16.3",
+          "scikit-learn": "1.6.1",
+          "torch": "2.11.0+cu130",
+          "transformers": "5.20.2",
+          "tokenizers": "0.23.3",
+          "safetensors": "0.8.0",
+          "huggingface-hub": "1.33.0"
+        },
+        "protocol_config": {
+          "name": "all_text",
+          "splits": {
+            "train": [
+              "all",
+              "train"
+            ],
+            "validation": [
+              "all",
+              "dev"
+            ],
+            "test": [
+              "all",
+              "test"
+            ]
+          },
+          "primary_metric": "macro_f1",
+          "seed": 42,
+          "selection": "Najwyższe macro-F1 walidacji; remis rozstrzyga kolejność siatki.",
+          "tfidf": {
+            "word_ngram_range": [
+              1,
+              2
+            ],
+            "min_df": 2,
+            "sublinear_tf": true,
+            "max_features": 60000
+          },
+          "char_tfidf": {
+            "analyzer": "char_wb",
+            "ngram_range": [
+              3,
+              5
+            ],
+            "max_features": 60000
+          },
+          "naive_bayes_alpha_grid": [
+            0.1,
+            1,
+            10
+          ],
+          "logistic_C_grid": [
+            0.1,
+            1,
+            4
+          ],
+          "logistic_max_iter": 2000,
+          "logistic_class_weight": "balanced",
+          "encoder": {
+            "model": "sdadas/polish-distilroberta",
+            "revision": "849b664fa3134beae84095d28a184c145c6a3aa5",
+            "max_length": 256,
+            "batch_size": 16,
+            "learning_rate": 0.00002,
+            "max_epochs": 8,
+            "patience": 2,
+            "min_delta": 0.0001,
+            "weight_decay": 0.01,
+            "restore_best": true,
+            "training_precision": "CUDA: AMP FP16 + GradScaler; CPU: FP32",
+            "inference_precision": "CUDA: AMP FP16; CPU: FP32"
+          },
+          "fasttext": {
+            "source": "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.pl.vec",
+            "vocabulary": "Unia słów z wejściowych tekstów, bez użycia ich etykiet; wyłącznie filtr pamięci gotowego słownika",
+            "oov": "Pominięte; brak znanych słów daje wektor zerowy"
+          },
+          "test_usage": "Etykiety testu służą wyłącznie końcowej ocenie, po wyborze parametrów danej metody. Tekst testowy może wcześniej służyć tylko do wyszukania stałego, gotowego wektora fastText; nie uczymy na nim żadnych wag ani statystyk."
+        },
+        "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015",
+        "data_setup_s": 1.4756882479998694,
+        "data": {
+          "dataset": "clarin-pl/polemo2-official",
+          "revision": "802e35d2b12bae84bb07911d841e8f046dc2fcef",
+          "variant": "all_text",
+          "train_rows": 6573,
+          "validation_rows": 823,
+          "sources": {
+            "train": {
+              "filename": "all.text.train.txt",
+              "rows": 6573,
+              "sha256": "03b9908ba4662b81879c719ae7d19e72ff8c705eb7dc127450bc232810068bae",
+              "source": "https://huggingface.co/datasets/clarin-pl/polemo2-official/resolve/802e35d2b12bae84bb07911d841e8f046dc2fcef/data/all.text.train.txt"
+            },
+            "validation": {
+              "filename": "all.text.dev.txt",
+              "rows": 823,
+              "sha256": "1d92db1b0b76f7c4787cbc1492f68be55c762deae0d6c6a0e5359748de7f4c47",
+              "source": "https://huggingface.co/datasets/clarin-pl/polemo2-official/resolve/802e35d2b12bae84bb07911d841e8f046dc2fcef/data/all.text.dev.txt"
+            },
+            "test": {
+              "filename": "all.text.test.txt",
+              "rows": 820,
+              "sha256": "153ca33789f9b5bc5c8a7661bb13861a5c714b915b4f9969ae9901bee116d4c7",
+              "source": "https://huggingface.co/datasets/clarin-pl/polemo2-official/resolve/802e35d2b12bae84bb07911d841e8f046dc2fcef/data/all.text.test.txt"
+            }
+          },
+          "labels": [
+            "zero",
+            "minus",
+            "plus",
+            "amb"
+          ],
+          "test_rows": 820
+        },
+        "notes": [
+          "Wyniki pojedynczego uruchomienia; nie są średnią z wielu losowych inicjalizacji.",
+          "Teksty, etykiety poszczególnych przykładów i identyfikatory wierszy nie są eksportowane."
+        ],
+        "best_method_by_validation": "encoder_finetuned"
+      },
+      "results": [
+        {
+          "id": "dummy",
+          "name": "Najczęstsza klasa",
+          "status": "completed",
+          "setup_s": 0,
+          "feature_time": 0,
+          "fit_s": 0.006674216999954297,
+          "truncation_rate": null,
+          "notes": [],
+          "selected_params": {
+            "strategy": "most_frequent"
+          },
+          "validation_history": [],
+          "run_context": {
+            "date": "2026-10-26T20:09:34.720259+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "train_s": 0.006674216999954297,
+          "validation": {
+            "macro_f1": 0.13487133984028393,
+            "accuracy": 0.36938031591737547,
+            "balanced_accuracy": 0.25
+          },
+          "test": {
+            "macro_f1": 0.1462467644521139,
+            "accuracy": 0.41341463414634144,
+            "balanced_accuracy": 0.25
+          },
+          "predict_s": {
+            "validation": 0.000870606000034968,
+            "test": 0.00016028400000323018
+          }
+        },
+        {
+          "id": "tfidf_nb",
+          "name": "TF-IDF słów + naiwny klasyfikator Bayesa",
+          "status": "completed",
+          "setup_s": 0,
+          "feature_time": 2.8241756090001218,
+          "fit_s": 0.03049811200003205,
+          "truncation_rate": null,
+          "notes": [],
+          "selected_params": {
+            "alpha": 0.1
+          },
+          "validation_history": [
+            {
+              "params": {
+                "alpha": 0.1
+              },
+              "macro_f1": 0.7920938505796234,
+              "accuracy": 0.8031591737545565,
+              "balanced_accuracy": 0.7840075083270985
+            },
+            {
+              "params": {
+                "alpha": 1
+              },
+              "macro_f1": 0.5929105295951222,
+              "accuracy": 0.68408262454435,
+              "balanced_accuracy": 0.6091488262028432
+            },
+            {
+              "params": {
+                "alpha": 10
+              },
+              "macro_f1": 0.1839598298347165,
+              "accuracy": 0.3985419198055893,
+              "balanced_accuracy": 0.2754237288135593
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:09:35.429562+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "validation": {
+            "macro_f1": 0.7920938505796234,
+            "accuracy": 0.8031591737545565,
+            "balanced_accuracy": 0.7840075083270985
+          },
+          "train_s": 2.854673721000154,
+          "test": {
+            "macro_f1": 0.8119275051834524,
+            "accuracy": 0.824390243902439,
+            "balanced_accuracy": 0.7996173813847529
+          },
+          "predict_s": {
+            "validation": 0.14584062299991274,
+            "test": 0.15549277299987807
+          }
+        },
+        {
+          "id": "tfidf_lr",
+          "name": "TF-IDF słów + regresja logistyczna",
+          "status": "completed",
+          "setup_s": 0,
+          "feature_time": 2.870429313999921,
+          "fit_s": 11.827281284999799,
+          "truncation_rate": null,
+          "notes": [],
+          "selected_params": {
+            "C": 4
+          },
+          "validation_history": [
+            {
+              "params": {
+                "C": 0.1
+              },
+              "macro_f1": 0.782122544263651,
+              "accuracy": 0.7861482381530984,
+              "balanced_accuracy": 0.7927200498726655
+            },
+            {
+              "params": {
+                "C": 1
+              },
+              "macro_f1": 0.8093692545186189,
+              "accuracy": 0.8140947752126367,
+              "balanced_accuracy": 0.8137435118773562
+            },
+            {
+              "params": {
+                "C": 4
+              },
+              "macro_f1": 0.8126977536186544,
+              "accuracy": 0.8153098420413123,
+              "balanced_accuracy": 0.8129051367226843
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:09:38.750545+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "validation": {
+            "macro_f1": 0.8126977536186544,
+            "accuracy": 0.8153098420413123,
+            "balanced_accuracy": 0.8129051367226843
+          },
+          "train_s": 14.69771059899972,
+          "test": {
+            "macro_f1": 0.8070293982321134,
+            "accuracy": 0.8170731707317073,
+            "balanced_accuracy": 0.8037208405354546
+          },
+          "predict_s": {
+            "validation": 0.15073062199985543,
+            "test": 0.19839850699986528
+          }
+        },
+        {
+          "id": "tfidf_word_char_lr",
+          "name": "TF-IDF słów i fragmentów słów + regresja logistyczna",
+          "status": "completed",
+          "setup_s": 0,
+          "feature_time": 9.151006383000095,
+          "fit_s": 37.61579146799977,
+          "truncation_rate": null,
+          "notes": [],
+          "selected_params": {
+            "C": 1
+          },
+          "validation_history": [
+            {
+              "params": {
+                "C": 0.1
+              },
+              "macro_f1": 0.8085997171200046,
+              "accuracy": 0.8116646415552855,
+              "balanced_accuracy": 0.8122817171628155
+            },
+            {
+              "params": {
+                "C": 1
+              },
+              "macro_f1": 0.8276092114796127,
+              "accuracy": 0.8311057108140948,
+              "balanced_accuracy": 0.8297865191829012
+            },
+            {
+              "params": {
+                "C": 4
+              },
+              "macro_f1": 0.8273068680647989,
+              "accuracy": 0.8323207776427703,
+              "balanced_accuracy": 0.8271841322911571
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:09:53.968525+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "validation": {
+            "macro_f1": 0.8276092114796127,
+            "accuracy": 0.8311057108140948,
+            "balanced_accuracy": 0.8297865191829012
+          },
+          "train_s": 46.766797850999865,
+          "test": {
+            "macro_f1": 0.8115548434171362,
+            "accuracy": 0.8158536585365853,
+            "balanced_accuracy": 0.8133284382684208
+          },
+          "predict_s": {
+            "validation": 0.9335945820002962,
+            "test": 0.942594402000168
+          }
+        },
+        {
+          "id": "fasttext_lr",
+          "name": "Średnia wektorów fastText PL + regresja logistyczna",
+          "status": "completed",
+          "setup_s": 56.89135140999997,
+          "feature_time": 1.1287258809998093,
+          "fit_s": 11.214577984000016,
+          "truncation_rate": null,
+          "notes": [
+            "Stały słownik .vec filtrujemy po słowach z wejściowych tekstów wyłącznie dla oszczędności RAM. Etykiety walidacji i testu nie wpływają na wektory. Brak wektora w oryginalnym pliku oznacza pominięcie słowa."
+          ],
+          "selected_params": {
+            "C": 0.1
+          },
+          "validation_history": [
+            {
+              "params": {
+                "C": 0.1
+              },
+              "macro_f1": 0.7683302380815282,
+              "accuracy": 0.7654921020656136,
+              "balanced_accuracy": 0.7746366561393917
+            },
+            {
+              "params": {
+                "C": 1
+              },
+              "macro_f1": 0.7590509520687879,
+              "accuracy": 0.7569866342648846,
+              "balanced_accuracy": 0.7665881467439786
+            },
+            {
+              "params": {
+                "C": 4
+              },
+              "macro_f1": 0.7516188167195208,
+              "accuracy": 0.7509113001215066,
+              "balanced_accuracy": 0.7612118626082702
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:10:42.794279+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "fasttext": {
+            "source": "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.pl.vec",
+            "sha256": "9c2674431e796595c8c1d3b5e1a941c7e833d23cad223d6e4d1c36447af5f3cc",
+            "dimension": 300,
+            "lookup_vocabulary": 82243,
+            "retained_vectors": 65537,
+            "license": "CC-BY-SA-3.0"
+          },
+          "coverage": {
+            "train": {
+              "token_coverage": 0.9590155349498967,
+              "zero_vectors": 0
+            },
+            "validation": {
+              "token_coverage": 0.9616763956170067,
+              "zero_vectors": 0
+            },
+            "test": {
+              "token_coverage": 0.9577577284795032,
+              "zero_vectors": 0
+            }
+          },
+          "validation": {
+            "macro_f1": 0.7683302380815282,
+            "accuracy": 0.7654921020656136,
+            "balanced_accuracy": 0.7746366561393917
+          },
+          "train_s": 12.343303864999825,
+          "test": {
+            "macro_f1": 0.7622359634163032,
+            "accuracy": 0.7646341463414634,
+            "balanced_accuracy": 0.77019063378588
+          },
+          "predict_s": {
+            "validation": 0.15925351599980786,
+            "test": 0.2161818189999849
+          }
+        },
+        {
+          "id": "encoder_frozen_lr",
+          "name": "Zamrożony polski encoder + regresja logistyczna",
+          "status": "completed",
+          "setup_s": 20.487921811999968,
+          "feature_time": 13.931502006000073,
+          "fit_s": 39.86801848699997,
+          "truncation_rate": {
+            "train": 0.34656929864597597,
+            "validation": 0.34264884568651277,
+            "test": 0.3439024390243902
+          },
+          "notes": [
+            "Wagi encodera pozostają stałe. Uczymy regresję logistyczną na średniej reprezentacji tokenów, z pominięciem paddingu."
+          ],
+          "selected_params": {
+            "C": 0.1
+          },
+          "validation_history": [
+            {
+              "params": {
+                "C": 0.1
+              },
+              "macro_f1": 0.7813151281130388,
+              "accuracy": 0.7776427703523694,
+              "balanced_accuracy": 0.7857530403801329
+            },
+            {
+              "params": {
+                "C": 1
+              },
+              "macro_f1": 0.7618074655770701,
+              "accuracy": 0.7582017010935601,
+              "balanced_accuracy": 0.7657969599795689
+            },
+            {
+              "params": {
+                "C": 4
+              },
+              "macro_f1": 0.7565547218462471,
+              "accuracy": 0.7545565006075334,
+              "balanced_accuracy": 0.7608549821408017
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:11:52.789766+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "validation": {
+            "macro_f1": 0.7813151281130388,
+            "accuracy": 0.7776427703523694,
+            "balanced_accuracy": 0.7857530403801329
+          },
+          "train_s": 53.799520493000045,
+          "test": {
+            "macro_f1": 0.7600476524455382,
+            "accuracy": 0.7609756097560976,
+            "balanced_accuracy": 0.767864735002431
+          },
+          "predict_s": {
+            "validation": 1.595902568999918,
+            "test": 1.698223169999892
+          }
+        },
+        {
+          "id": "encoder_finetuned",
+          "name": "Dostrajanie polskiego encodera",
+          "status": "completed",
+          "setup_s": 0.6965431080000144,
+          "feature_time": 0,
+          "fit_s": 316.70309690800036,
+          "truncation_rate": {
+            "train": 0.34656929864597597,
+            "validation": 0.34264884568651277,
+            "test": 0.3439024390243902
+          },
+          "notes": [
+            "Dostrajamy wszystkie wagi. To głowica klasyfikacyjna modelu RoBERTa, a nie regresja logistyczna na średniej tokenów z poprzedniej metody."
+          ],
+          "selected_params": {
+            "model": "sdadas/polish-distilroberta",
+            "revision": "849b664fa3134beae84095d28a184c145c6a3aa5",
+            "max_length": 256,
+            "batch_size": 16,
+            "learning_rate": 0.00002,
+            "max_epochs": 8,
+            "patience": 2,
+            "min_delta": 0.0001,
+            "weight_decay": 0.01,
+            "restore_best": true,
+            "training_precision": "CUDA: AMP FP16 + GradScaler; CPU: FP32",
+            "inference_precision": "CUDA: AMP FP16; CPU: FP32",
+            "best_epoch": 4
+          },
+          "validation_history": [
+            {
+              "epoch": 1,
+              "loss": 0.8351403565670137,
+              "train_s": 51.03712597200001,
+              "validation_s": 1.7082639309999195,
+              "macro_f1": 0.754431951463779,
+              "accuracy": 0.7934386391251519,
+              "balanced_accuracy": 0.7703499764395269
+            },
+            {
+              "epoch": 2,
+              "loss": 0.49539899339319343,
+              "train_s": 53.76119216400002,
+              "validation_s": 1.6937656299999162,
+              "macro_f1": 0.7672910048908385,
+              "accuracy": 0.8019441069258809,
+              "balanced_accuracy": 0.7815045452828696
+            },
+            {
+              "epoch": 3,
+              "loss": 0.37189208438330074,
+              "train_s": 52.733262290000084,
+              "validation_s": 1.7355022260001078,
+              "macro_f1": 0.7805394808734553,
+              "accuracy": 0.7776427703523694,
+              "balanced_accuracy": 0.7942036964763605
+            },
+            {
+              "epoch": 4,
+              "loss": 0.2803797928683565,
+              "train_s": 53.03372388900016,
+              "validation_s": 1.7214951809999093,
+              "macro_f1": 0.8431421138775493,
+              "accuracy": 0.8444714459295262,
+              "balanced_accuracy": 0.8431322907074617
+            },
+            {
+              "epoch": 5,
+              "loss": 0.22052175741969732,
+              "train_s": 53.398820704999935,
+              "validation_s": 1.7014673880000828,
+              "macro_f1": 0.8246095037732004,
+              "accuracy": 0.8250303766707169,
+              "balanced_accuracy": 0.832418851256079
+            },
+            {
+              "epoch": 6,
+              "loss": 0.15969632464185726,
+              "train_s": 52.73897188800015,
+              "validation_s": 1.7222448850000092,
+              "macro_f1": 0.8333259126518737,
+              "accuracy": 0.8432563791008505,
+              "balanced_accuracy": 0.8304990886053638
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:13:13.811674+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "validation": {
+            "macro_f1": 0.8431421138775493,
+            "accuracy": 0.8444714459295262,
+            "balanced_accuracy": 0.8431322907074617
+          },
+          "best_epoch": 4,
+          "train_s": 316.70309690800036,
+          "test": {
+            "macro_f1": 0.836649199862063,
+            "accuracy": 0.8451219512195122,
+            "balanced_accuracy": 0.8379033982998958
+          },
+          "predict_s": {
+            "validation": 10.282739240999945,
+            "test": 1.7118993280000723
+          }
+        }
+      ]
+    },
+    "hotels_to_medicine": {
+      "status": "completed",
+      "run": {
+        "date": "2026-10-26T20:19:01.842494+00:00",
+        "protocol": "hotels_to_medicine",
+        "hardware": {
+          "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+          "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+          "cpu_count": 2,
+          "cuda_available": true,
+          "cuda_version": "13.0",
+          "gpu": "Tesla T4",
+          "gpu_memory_gib": 14.56
+        },
+        "versions": {
+          "python": "3.13.16",
+          "numpy": "2.1.3",
+          "pandas": "2.2.3",
+          "scipy": "1.16.3",
+          "scikit-learn": "1.6.1",
+          "torch": "2.11.0+cu130",
+          "transformers": "5.20.2",
+          "tokenizers": "0.23.3",
+          "safetensors": "0.8.0",
+          "huggingface-hub": "1.33.0"
+        },
+        "protocol_config": {
+          "name": "hotels_to_medicine",
+          "splits": {
+            "train": [
+              "hotels",
+              "train"
+            ],
+            "validation": [
+              "hotels",
+              "dev"
+            ],
+            "test": [
+              "medicine",
+              "test"
+            ]
+          },
+          "primary_metric": "macro_f1",
+          "seed": 42,
+          "selection": "Najwyższe macro-F1 walidacji; remis rozstrzyga kolejność siatki.",
+          "tfidf": {
+            "word_ngram_range": [
+              1,
+              2
+            ],
+            "min_df": 2,
+            "sublinear_tf": true,
+            "max_features": 60000
+          },
+          "char_tfidf": {
+            "analyzer": "char_wb",
+            "ngram_range": [
+              3,
+              5
+            ],
+            "max_features": 60000
+          },
+          "naive_bayes_alpha_grid": [
+            0.1,
+            1,
+            10
+          ],
+          "logistic_C_grid": [
+            0.1,
+            1,
+            4
+          ],
+          "logistic_max_iter": 2000,
+          "logistic_class_weight": "balanced",
+          "encoder": {
+            "model": "sdadas/polish-distilroberta",
+            "revision": "849b664fa3134beae84095d28a184c145c6a3aa5",
+            "max_length": 256,
+            "batch_size": 16,
+            "learning_rate": 0.00002,
+            "max_epochs": 8,
+            "patience": 2,
+            "min_delta": 0.0001,
+            "weight_decay": 0.01,
+            "restore_best": true,
+            "training_precision": "CUDA: AMP FP16 + GradScaler; CPU: FP32",
+            "inference_precision": "CUDA: AMP FP16; CPU: FP32"
+          },
+          "fasttext": {
+            "source": "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.pl.vec",
+            "vocabulary": "Unia słów z wejściowych tekstów, bez użycia ich etykiet; wyłącznie filtr pamięci gotowego słownika",
+            "oov": "Pominięte; brak znanych słów daje wektor zerowy"
+          },
+          "test_usage": "Etykiety testu służą wyłącznie końcowej ocenie, po wyborze parametrów danej metody. Tekst testowy może wcześniej służyć tylko do wyszukania stałego, gotowego wektora fastText; nie uczymy na nim żadnych wag ani statystyk."
+        },
+        "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015",
+        "data_setup_s": 3.4101736000000074,
+        "data": {
+          "dataset": "clarin-pl/polemo2-official",
+          "revision": "802e35d2b12bae84bb07911d841e8f046dc2fcef",
+          "variant": "hotels_text → medicine_text",
+          "train_rows": 3165,
+          "validation_rows": 396,
+          "sources": {
+            "train": {
+              "filename": "hotels.text.train.txt",
+              "rows": 3165,
+              "sha256": "b84368ee95fc109bd9ff6044c2a7ef0973257a0a5d9d118eeb07d00aaec0efc5",
+              "source": "https://huggingface.co/datasets/clarin-pl/polemo2-official/resolve/802e35d2b12bae84bb07911d841e8f046dc2fcef/data/hotels.text.train.txt"
+            },
+            "validation": {
+              "filename": "hotels.text.dev.txt",
+              "rows": 396,
+              "sha256": "1cd423189430b93587d64563c5c2287d70f799ef6af266d5756c281b65d82e07",
+              "source": "https://huggingface.co/datasets/clarin-pl/polemo2-official/resolve/802e35d2b12bae84bb07911d841e8f046dc2fcef/data/hotels.text.dev.txt"
+            },
+            "test": {
+              "filename": "medicine.text.test.txt",
+              "rows": 327,
+              "sha256": "aa7c2f894fe44dc6abe3e2c503c2c656c1aa0f22cf7a33143fa1bc47fc53f702",
+              "source": "https://huggingface.co/datasets/clarin-pl/polemo2-official/resolve/802e35d2b12bae84bb07911d841e8f046dc2fcef/data/medicine.text.test.txt"
+            },
+            "reference_test": {
+              "filename": "hotels.text.test.txt",
+              "rows": 395,
+              "sha256": "4ed729987dbed64ac5f3b2ada48524c4f6caed5845930b9a5ba04469bb438890",
+              "source": "https://huggingface.co/datasets/clarin-pl/polemo2-official/resolve/802e35d2b12bae84bb07911d841e8f046dc2fcef/data/hotels.text.test.txt"
+            }
+          },
+          "labels": [
+            "zero",
+            "minus",
+            "plus",
+            "amb"
+          ],
+          "test_rows": 327,
+          "reference_test_rows": 395
+        },
+        "notes": [
+          "Wyniki pojedynczego uruchomienia; nie są średnią z wielu losowych inicjalizacji.",
+          "Teksty, etykiety poszczególnych przykładów i identyfikatory wierszy nie są eksportowane."
+        ],
+        "best_method_by_validation": "tfidf_word_char_lr"
+      },
+      "results": [
+        {
+          "id": "dummy",
+          "name": "Najczęstsza klasa",
+          "status": "completed",
+          "setup_s": 0,
+          "feature_time": 0,
+          "fit_s": 0.0009187330001623195,
+          "truncation_rate": null,
+          "notes": [],
+          "selected_params": {
+            "strategy": "most_frequent"
+          },
+          "validation_history": [],
+          "run_context": {
+            "date": "2026-10-26T20:19:01.862801+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "train_s": 0.0009187330001623195,
+          "validation": {
+            "macro_f1": 0.1386861313868613,
+            "accuracy": 0.3838383838383838,
+            "balanced_accuracy": 0.25
+          },
+          "reference_test_predict_s": 0.00047724899991408165,
+          "reference_test": {
+            "macro_f1": 0.148576512455516,
+            "accuracy": 0.42278481012658226,
+            "balanced_accuracy": 0.25
+          },
+          "test": {
+            "macro_f1": 0.14456521739130435,
+            "accuracy": 0.40672782874617736,
+            "balanced_accuracy": 0.25
+          },
+          "domain_gap": {
+            "macro_f1": 0.004011295064211662,
+            "accuracy": 0.0160569813804049,
+            "balanced_accuracy": 0
+          },
+          "predict_s": {
+            "validation": 0.00018498200006433763,
+            "test": 0.00023559900000691414
+          }
+        },
+        {
+          "id": "tfidf_nb",
+          "name": "TF-IDF słów + naiwny klasyfikator Bayesa",
+          "status": "completed",
+          "setup_s": 0,
+          "feature_time": 1.4402412249999088,
+          "fit_s": 0.024216023999770186,
+          "truncation_rate": null,
+          "notes": [],
+          "selected_params": {
+            "alpha": 0.1
+          },
+          "validation_history": [
+            {
+              "params": {
+                "alpha": 0.1
+              },
+              "macro_f1": 0.7787360469102977,
+              "accuracy": 0.7904040404040404,
+              "balanced_accuracy": 0.7619716249609453
+            },
+            {
+              "params": {
+                "alpha": 1
+              },
+              "macro_f1": 0.5211381447056679,
+              "accuracy": 0.6085858585858586,
+              "balanced_accuracy": 0.5162601187263895
+            },
+            {
+              "params": {
+                "alpha": 10
+              },
+              "macro_f1": 0.15284239842726083,
+              "accuracy": 0.39141414141414144,
+              "balanced_accuracy": 0.25688073394495414
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:19:03.786873+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "validation": {
+            "macro_f1": 0.7787360469102977,
+            "accuracy": 0.7904040404040404,
+            "balanced_accuracy": 0.7619716249609453
+          },
+          "train_s": 1.464457248999679,
+          "reference_test_predict_s": 0.07132652399991457,
+          "reference_test": {
+            "macro_f1": 0.7923005565862707,
+            "accuracy": 0.7949367088607595,
+            "balanced_accuracy": 0.7794184388697687
+          },
+          "test": {
+            "macro_f1": 0.48654943988794547,
+            "accuracy": 0.6238532110091743,
+            "balanced_accuracy": 0.4913286731355098
+          },
+          "domain_gap": {
+            "macro_f1": 0.3057511166983253,
+            "accuracy": 0.17108349785158516,
+            "balanced_accuracy": 0.2880897657342589
+          },
+          "predict_s": {
+            "validation": 0.08954450799978986,
+            "test": 0.07474629599983018
+          }
+        },
+        {
+          "id": "tfidf_lr",
+          "name": "TF-IDF słów + regresja logistyczna",
+          "status": "completed",
+          "setup_s": 0,
+          "feature_time": 1.369965258999855,
+          "fit_s": 6.290862802999982,
+          "truncation_rate": null,
+          "notes": [],
+          "selected_params": {
+            "C": 4
+          },
+          "validation_history": [
+            {
+              "params": {
+                "C": 0.1
+              },
+              "macro_f1": 0.7871057438712336,
+              "accuracy": 0.7878787878787878,
+              "balanced_accuracy": 0.7917083960576021
+            },
+            {
+              "params": {
+                "C": 1
+              },
+              "macro_f1": 0.8040030884148531,
+              "accuracy": 0.7904040404040404,
+              "balanced_accuracy": 0.8024244823472605
+            },
+            {
+              "params": {
+                "C": 4
+              },
+              "macro_f1": 0.810661441627635,
+              "accuracy": 0.7954545454545454,
+              "balanced_accuracy": 0.8070091530093447
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:19:05.752088+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "validation": {
+            "macro_f1": 0.810661441627635,
+            "accuracy": 0.7954545454545454,
+            "balanced_accuracy": 0.8070091530093447
+          },
+          "train_s": 7.660828061999837,
+          "reference_test_predict_s": 0.06929789400010122,
+          "reference_test": {
+            "macro_f1": 0.8346653762134768,
+            "accuracy": 0.830379746835443,
+            "balanced_accuracy": 0.8282129097287152
+          },
+          "test": {
+            "macro_f1": 0.5117326146517424,
+            "accuracy": 0.6636085626911316,
+            "balanced_accuracy": 0.5220372275581174
+          },
+          "domain_gap": {
+            "macro_f1": 0.32293276156173445,
+            "accuracy": 0.16677118414431147,
+            "balanced_accuracy": 0.30617568217059776
+          },
+          "predict_s": {
+            "validation": 0.14281854899968494,
+            "test": 0.13985576799996124
+          }
+        },
+        {
+          "id": "tfidf_word_char_lr",
+          "name": "TF-IDF słów i fragmentów słów + regresja logistyczna",
+          "status": "completed",
+          "setup_s": 0,
+          "feature_time": 4.768728858000031,
+          "fit_s": 21.753859441999793,
+          "truncation_rate": null,
+          "notes": [],
+          "selected_params": {
+            "C": 4
+          },
+          "validation_history": [
+            {
+              "params": {
+                "C": 0.1
+              },
+              "macro_f1": 0.8196480938416422,
+              "accuracy": 0.8131313131313131,
+              "balanced_accuracy": 0.8186420669185106
+            },
+            {
+              "params": {
+                "C": 1
+              },
+              "macro_f1": 0.8175037069192445,
+              "accuracy": 0.8080808080808081,
+              "balanced_accuracy": 0.8159977064220184
+            },
+            {
+              "params": {
+                "C": 4
+              },
+              "macro_f1": 0.8269838115474571,
+              "accuracy": 0.8207070707070707,
+              "balanced_accuracy": 0.8248702317720907
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:19:14.047018+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "validation": {
+            "macro_f1": 0.8269838115474571,
+            "accuracy": 0.8207070707070707,
+            "balanced_accuracy": 0.8248702317720907
+          },
+          "train_s": 26.522588299999825,
+          "reference_test_predict_s": 0.4677412959999856,
+          "reference_test": {
+            "macro_f1": 0.8491927261719274,
+            "accuracy": 0.8455696202531645,
+            "balanced_accuracy": 0.8434308459492974
+          },
+          "test": {
+            "macro_f1": 0.5584714529500455,
+            "accuracy": 0.6880733944954128,
+            "balanced_accuracy": 0.5594078918007296
+          },
+          "domain_gap": {
+            "macro_f1": 0.2907212732218819,
+            "accuracy": 0.15749622575775168,
+            "balanced_accuracy": 0.2840229541485678
+          },
+          "predict_s": {
+            "validation": 0.5294357109999055,
+            "test": 0.4673403839999537
+          }
+        },
+        {
+          "id": "fasttext_lr",
+          "name": "Średnia wektorów fastText PL + regresja logistyczna",
+          "status": "completed",
+          "setup_s": 13.047534757999983,
+          "feature_time": 0.5924711130001015,
+          "fit_s": 5.054939372999797,
+          "truncation_rate": null,
+          "notes": [
+            "Stały słownik .vec filtrujemy po słowach z wejściowych tekstów wyłącznie dla oszczędności RAM. Etykiety walidacji i testu nie wpływają na wektory. Brak wektora w oryginalnym pliku oznacza pominięcie słowa."
+          ],
+          "selected_params": {
+            "C": 0.1
+          },
+          "validation_history": [
+            {
+              "params": {
+                "C": 0.1
+              },
+              "macro_f1": 0.7964627558176366,
+              "accuracy": 0.7828282828282829,
+              "balanced_accuracy": 0.7987867114494277
+            },
+            {
+              "params": {
+                "C": 1
+              },
+              "macro_f1": 0.7871936492888936,
+              "accuracy": 0.7727272727272727,
+              "balanced_accuracy": 0.7896148848240406
+            },
+            {
+              "params": {
+                "C": 4
+              },
+              "macro_f1": 0.780365193806124,
+              "accuracy": 0.7676767676767676,
+              "balanced_accuracy": 0.7823213068423893
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:19:42.320606+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "fasttext": {
+            "source": "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.pl.vec",
+            "sha256": "9c2674431e796595c8c1d3b5e1a941c7e833d23cad223d6e4d1c36447af5f3cc",
+            "dimension": 300,
+            "lookup_vocabulary": 51840,
+            "retained_vectors": 42684,
+            "license": "CC-BY-SA-3.0"
+          },
+          "coverage": {
+            "train": {
+              "token_coverage": 0.9558113006805855,
+              "zero_vectors": 0
+            },
+            "validation": {
+              "token_coverage": 0.9579631287737906,
+              "zero_vectors": 0
+            },
+            "test": {
+              "token_coverage": 0.9682714495489826,
+              "zero_vectors": 0
+            }
+          },
+          "validation": {
+            "macro_f1": 0.7964627558176366,
+            "accuracy": 0.7828282828282829,
+            "balanced_accuracy": 0.7987867114494277
+          },
+          "train_s": 5.647410485999899,
+          "reference_test_predict_s": 0.07462661699992168,
+          "reference_test": {
+            "macro_f1": 0.8131265016042883,
+            "accuracy": 0.8050632911392405,
+            "balanced_accuracy": 0.8134607860690579
+          },
+          "test": {
+            "macro_f1": 0.5834424522141091,
+            "accuracy": 0.7064220183486238,
+            "balanced_accuracy": 0.5870817155353237
+          },
+          "domain_gap": {
+            "macro_f1": 0.22968404939017928,
+            "accuracy": 0.09864127279061663,
+            "balanced_accuracy": 0.22637907053373418
+          },
+          "predict_s": {
+            "validation": 0.08489971700009846,
+            "test": 0.13761530300007507
+          }
+        },
+        {
+          "id": "encoder_frozen_lr",
+          "name": "Zamrożony polski encoder + regresja logistyczna",
+          "status": "completed",
+          "setup_s": 0.7144228340000609,
+          "feature_time": 6.567813182000009,
+          "fit_s": 15.85957753599996,
+          "truncation_rate": {
+            "train": 0.3617693522906793,
+            "validation": 0.33585858585858586,
+            "test": 0.39143730886850153
+          },
+          "notes": [
+            "Wagi encodera pozostają stałe. Uczymy regresję logistyczną na średniej reprezentacji tokenów, z pominięciem paddingu."
+          ],
+          "selected_params": {
+            "C": 0.1
+          },
+          "validation_history": [
+            {
+              "params": {
+                "C": 0.1
+              },
+              "macro_f1": 0.7933536501567586,
+              "accuracy": 0.7752525252525253,
+              "balanced_accuracy": 0.7951501832022041
+            },
+            {
+              "params": {
+                "C": 1
+              },
+              "macro_f1": 0.7574709713496266,
+              "accuracy": 0.7373737373737373,
+              "balanced_accuracy": 0.7568621651944216
+            },
+            {
+              "params": {
+                "C": 4
+              },
+              "macro_f1": 0.7521792636652651,
+              "accuracy": 0.7323232323232324,
+              "balanced_accuracy": 0.7462120814042661
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:20:01.677338+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "validation": {
+            "macro_f1": 0.7933536501567586,
+            "accuracy": 0.7752525252525253,
+            "balanced_accuracy": 0.7951501832022041
+          },
+          "train_s": 22.42739071799997,
+          "reference_test_predict_s": 0.8359746970002107,
+          "reference_test": {
+            "macro_f1": 0.772180344536316,
+            "accuracy": 0.7670886075949367,
+            "balanced_accuracy": 0.7674356436628404
+          },
+          "test": {
+            "macro_f1": 0.6012050982695789,
+            "accuracy": 0.7064220183486238,
+            "balanced_accuracy": 0.6133822724571504
+          },
+          "domain_gap": {
+            "macro_f1": 0.1709752462667371,
+            "accuracy": 0.06066658924631285,
+            "balanced_accuracy": 0.15405337120569007
+          },
+          "predict_s": {
+            "validation": 0.8388335130000542,
+            "test": 0.8126958200000445
+          }
+        },
+        {
+          "id": "encoder_finetuned",
+          "name": "Dostrajanie polskiego encodera",
+          "status": "completed",
+          "setup_s": 0.6710192089999509,
+          "feature_time": 0,
+          "fit_s": 128.67459418200042,
+          "truncation_rate": {
+            "train": 0.3617693522906793,
+            "validation": 0.33585858585858586,
+            "test": 0.39143730886850153
+          },
+          "notes": [
+            "Dostrajamy wszystkie wagi. To głowica klasyfikacyjna modelu RoBERTa, a nie regresja logistyczna na średniej tokenów z poprzedniej metody."
+          ],
+          "selected_params": {
+            "model": "sdadas/polish-distilroberta",
+            "revision": "849b664fa3134beae84095d28a184c145c6a3aa5",
+            "max_length": 256,
+            "batch_size": 16,
+            "learning_rate": 0.00002,
+            "max_epochs": 8,
+            "patience": 2,
+            "min_delta": 0.0001,
+            "weight_decay": 0.01,
+            "restore_best": true,
+            "training_precision": "CUDA: AMP FP16 + GradScaler; CPU: FP32",
+            "inference_precision": "CUDA: AMP FP16; CPU: FP32",
+            "best_epoch": 3
+          },
+          "validation_history": [
+            {
+              "epoch": 1,
+              "loss": 0.9887958350904745,
+              "train_s": 25.81770477100008,
+              "validation_s": 0.8617132580000089,
+              "macro_f1": 0.6367203877424141,
+              "accuracy": 0.6944444444444444,
+              "balanced_accuracy": 0.69532017780555
+            },
+            {
+              "epoch": 2,
+              "loss": 0.5989369854166233,
+              "train_s": 25.793110598000112,
+              "validation_s": 0.8730349820000356,
+              "macro_f1": 0.7655404308044111,
+              "accuracy": 0.7702020202020202,
+              "balanced_accuracy": 0.7803149941772942
+            },
+            {
+              "epoch": 3,
+              "loss": 0.4440327287567735,
+              "train_s": 25.850899841,
+              "validation_s": 0.8311029589999634,
+              "macro_f1": 0.8128185530628425,
+              "accuracy": 0.7929292929292929,
+              "balanced_accuracy": 0.8131467818899651
+            },
+            {
+              "epoch": 4,
+              "loss": 0.30709327835042327,
+              "train_s": 25.456162518000156,
+              "validation_s": 0.845167038999989,
+              "macro_f1": 0.8077658391723006,
+              "accuracy": 0.7904040404040404,
+              "balanced_accuracy": 0.8044521330985316
+            },
+            {
+              "epoch": 5,
+              "loss": 0.24703320927717862,
+              "train_s": 25.75671645400007,
+              "validation_s": 0.8455077809999239,
+              "macro_f1": 0.8006015741433077,
+              "accuracy": 0.7929292929292929,
+              "balanced_accuracy": 0.81455800693044
+            }
+          ],
+          "run_context": {
+            "date": "2026-10-26T20:20:29.087881+00:00",
+            "hardware": {
+              "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+              "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+              "cpu_count": 2,
+              "cuda_available": true,
+              "cuda_version": "13.0",
+              "gpu": "Tesla T4",
+              "gpu_memory_gib": 14.56
+            },
+            "versions": {
+              "python": "3.13.16",
+              "numpy": "2.1.3",
+              "pandas": "2.2.3",
+              "scipy": "1.16.3",
+              "scikit-learn": "1.6.1",
+              "torch": "2.11.0+cu130",
+              "transformers": "5.20.2",
+              "tokenizers": "0.23.3",
+              "safetensors": "0.8.0",
+              "huggingface-hub": "1.33.0"
+            },
+            "module_sha256": "44b4be5cbf87b2d85696d5e6c7bbb6109ced6816a687695c85296be7376ef015"
+          },
+          "validation": {
+            "macro_f1": 0.8128185530628425,
+            "accuracy": 0.7929292929292929,
+            "balanced_accuracy": 0.8131467818899651
+          },
+          "best_epoch": 3,
+          "train_s": 128.67459418200042,
+          "reference_test_predict_s": 0.8187778690000869,
+          "reference_test": {
+            "macro_f1": 0.8297604628746473,
+            "accuracy": 0.8202531645569621,
+            "balanced_accuracy": 0.829056803336848
+          },
+          "test": {
+            "macro_f1": 0.6448337449072947,
+            "accuracy": 0.7247706422018348,
+            "balanced_accuracy": 0.6632415621997825
+          },
+          "domain_gap": {
+            "macro_f1": 0.1849267179673526,
+            "accuracy": 0.09548252235512722,
+            "balanced_accuracy": 0.16581524113706547
+          },
+          "predict_s": {
+            "validation": 4.256526018999921,
+            "test": 0.7022464369999852
+          }
+        }
+      ]
+    }
+  }
+}
